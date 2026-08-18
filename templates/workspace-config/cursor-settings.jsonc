@@ -1,0 +1,42 @@
+// Baseline workspace settings for Cursor.
+// Cursor is a VS Code fork: the same settings.json format and the same
+// search/watcher excludes apply. Copy relevant keys into
+// .vscode/settings.json in your project (Cursor reads the same file).
+//
+// Cursor-specific context controls that matter for cost:
+// - .cursorignore (see cursorignore.example): keeps files out of Cursor's
+//   indexing and context gathering entirely. Prefer it for anything the
+//   agent should never read.
+// - Rules: keep always-applied rules short; scope longer rules to globs so
+//   they load only when matching files are in play. Rules content rides in
+//   the prompt, so it is re-billed every turn it is attached.
+// - MCP: configure servers in .cursor/mcp.json per project. Keep the global
+//   ~/.cursor/mcp.json near-empty; a globally attached server is standing
+//   overhead in every session of every project.
+{
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/out": true,
+    "**/.next": true,
+    "**/coverage": true,
+    "**/__pycache__": true,
+    "**/.venv": true,
+    "**/target": true,
+    "**/vendor": true,
+    "**/*.min.js": true,
+    "**/*.map": true,
+    "**/package-lock.json": true,
+    "**/yarn.lock": true,
+    "**/pnpm-lock.yaml": true
+  },
+
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.venv/**": true,
+    "**/target/**": true
+  }
+}

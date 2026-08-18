@@ -1,0 +1,51 @@
+# Example .cursorignore
+# Copy to your project root as .cursorignore and adjust.
+# Syntax follows .gitignore conventions.
+#
+# Purpose: keep these paths out of AI indexing and context gathering.
+# Everything listed here is either regenerable, third-party, or noise,
+# and every excluded tree makes retrieval cheaper and search results cleaner.
+
+# Dependencies and lockfiles
+node_modules/
+vendor/
+.venv/
+venv/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+poetry.lock
+Cargo.lock
+
+# Build output and caches
+dist/
+build/
+out/
+.next/
+target/
+coverage/
+__pycache__/
+*.pyc
+.cache/
+
+# Generated code (adjust to your project's layout)
+generated/
+*.generated.*
+*.min.js
+*.map
+
+# Large data and media the agent should not read
+*.csv
+*.parquet
+*.sqlite
+*.png
+*.jpg
+*.mp4
+*.pdf
+
+# Secrets must never reach a model context. Belt and suspenders:
+# these should not be in the repo at all.
+.env
+.env.*
+*.pem
+*.key

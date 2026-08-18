@@ -1,0 +1,46 @@
+// Baseline workspace settings for VS Code with an AI agent extension
+// (GitHub Copilot, or any assistant that respects workspace excludes).
+//
+// Copy relevant keys into your project's .vscode/settings.json.
+// These are deliberately conservative: they exclude noise from search and
+// file watching, which most context-gathering features build on. AI-specific
+// setting keys churn quickly between extension releases, so this baseline
+// sticks to stable editor keys and leaves extension-specific toggles to the
+// extension's current documentation.
+{
+  // Keep generated and dependency trees out of search-based context gathering.
+  // Junk in search results costs twice: retrieval tokens, and agent confusion.
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/out": true,
+    "**/.next": true,
+    "**/coverage": true,
+    "**/__pycache__": true,
+    "**/.venv": true,
+    "**/target": true,
+    "**/vendor": true,
+    "**/*.min.js": true,
+    "**/*.map": true,
+    "**/package-lock.json": true,
+    "**/yarn.lock": true,
+    "**/pnpm-lock.yaml": true
+  },
+
+  // Reduce watcher churn on the same trees.
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.venv/**": true,
+    "**/target/**": true
+  }
+
+  // Extension-specific guidance (check current docs for exact keys):
+  // - Keep instruction files (.github/copilot-instructions.md or equivalent)
+  //   small; they are sent with every request. Audit with
+  //   scripts/instruction-audit.py from this repo.
+  // - Configure MCP servers in .vscode/mcp.json per workspace, not at the
+  //   user level. Audit with scripts/tool-overhead.py.
+}

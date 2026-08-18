@@ -1,0 +1,41 @@
+// Annotated example of a minimal per-project tool-server config.
+//
+// Key names by client (verify against current docs):
+//   Claude Code: .mcp.json, key "mcpServers"
+//   Cursor:      .cursor/mcp.json, key "mcpServers"
+//   VS Code:     .vscode/mcp.json, key "servers"
+//
+// This example uses "mcpServers". Strip comments if your client requires
+// strict JSON.
+//
+// The governing rule: every server listed here adds its full tool catalog
+// (every tool's name, description, and schema) to every request in every
+// session opened in this project, whether or not any tool is called.
+// Each server must therefore justify itself against the audit criteria in
+// tool-server-audit.md before it earns a line in this file.
+{
+  "mcpServers": {
+    // Example: a project-relevant server this codebase actually uses daily.
+    // Recorded in the audit table with a measured overhead figure.
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+      // Auth note: supply tokens via the client's environment mechanism.
+      // Never write a secret into this file; it is committed to the repo.
+    }
+
+    // Deliberately absent, with reasons:
+    //
+    // - The database server: used roughly monthly. Attach it for the session
+    //   that needs it, then remove it. A monthly-use server resident all year
+    //   is standing overhead in every session for zero benefit 29 days out
+    //   of 30.
+    //
+    // - The browser-automation server: large catalog (measure it: often one
+    //   of the biggest single line items in tool-overhead.py output). Only
+    //   attached in the frontend repo where it is actually exercised.
+    //
+    // - The everything-connector: fails the audit's "would you notice if it
+    //   were gone" test. Servers nobody misses are pure per-turn cost.
+  }
+}

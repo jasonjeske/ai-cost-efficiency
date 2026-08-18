@@ -1,0 +1,4 @@
+date,task_id,task_class,model_tier,sessions,turns_total,attempts,input_tokens,cached_input_tokens,output_tokens,completed_to_standard,cost_usd,notes
+YYYY-MM-DD,example-001,single-file-change,mid,1,6,1,85000,61000,4200,y,,tokens from harness session readout
+YYYY-MM-DD,example-002,multi-file-feature,frontier,2,21,1,410000,300000,15000,y,,split into 2 sessions at natural boundary
+YYYY-MM-DD,example-003,single-file-change,small,3,17,3,240000,150000,9000,n,,two abandoned attempts; escalated next day

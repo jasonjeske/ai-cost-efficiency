@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor and OS noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Local measurement data. Session logs may contain prompt fragments,
+# file paths, and other details you do not want in a public repo.
+# Commit the template, never the filled-in log.
+measurement/*.csv
+!measurement/session-log.template.csv
+
+# Local scratch
+*.local.*
+tmp/
