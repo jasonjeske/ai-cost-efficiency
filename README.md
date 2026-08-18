@@ -1,4 +1,4 @@
-![AI Cost Efficiency](docs/hero.png)
+![AI Cost Efficiency - control the re-read tax](docs/hero.svg)
 
 # AI Cost Efficiency
 

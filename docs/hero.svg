@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
+  <title id="title">AI Cost Efficiency</title>
+  <desc id="desc">A dark technical dashboard showing growing context cost over turns and the lower cost of focused agent sessions.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071B2A"/>
+      <stop offset="0.58" stop-color="#0A2940"/>
+      <stop offset="1" stop-color="#083447"/>
+    </linearGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#39E6C2" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#39E6C2" stop-opacity=".56"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#B7E7E0" stroke-opacity=".075" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Memorable element: the compounding-context wave visibly rises over a calm session baseline. -->
+  <rect width="1600" height="520" fill="url(#bg)"/>
+  <rect width="1600" height="520" fill="url(#grid)"/>
+  <path d="M0 470 C280 410 410 520 690 454 S1150 338 1600 390" fill="none" stroke="#56B7D3" stroke-opacity=".16" stroke-width="2"/>
+
+  <g transform="translate(86 84)">
+    <rect x="0" y="0" width="9" height="82" fill="#39E6C2"/>
+    <text x="27" y="26" fill="#BFEAE4" font-family="Cooper Hewitt, Avenir Next, sans-serif" font-size="18" font-weight="700" letter-spacing="5">PRACTICAL SYSTEMS FOR</text>
+    <text x="24" y="86" fill="#F3FCFA" font-family="Cooper Hewitt, Avenir Next, sans-serif" font-size="57" font-weight="800" letter-spacing="-2">AI COST</text>
+    <text x="24" y="143" fill="#39E6C2" font-family="Cooper Hewitt, Avenir Next, sans-serif" font-size="57" font-weight="800" letter-spacing="-2">EFFICIENCY</text>
+    <text x="27" y="185" fill="#BFEAE4" font-family="Public Sans, Avenir Next, sans-serif" font-size="19" font-weight="500">Control the re-read tax. Measure work. Route for completion.</text>
+
+    <g transform="translate(27 238)" font-family="JetBrains Mono, Menlo, monospace" font-size="14" letter-spacing="1.2">
+      <text x="0" y="0" fill="#39E6C2">01</text><text x="38" y="0" fill="#D8F5F0">CONTEXT HYGIENE</text>
+      <text x="0" y="31" fill="#39E6C2">02</text><text x="38" y="31" fill="#D8F5F0">TOOL OVERHEAD</text>
+      <text x="0" y="62" fill="#39E6C2">03</text><text x="38" y="62" fill="#D8F5F0">MODEL ROUTING</text>
+    </g>
+  </g>
+
+  <g transform="translate(763 80)">
+    <text x="0" y="0" fill="#8BCAC5" font-family="JetBrains Mono, Menlo, monospace" font-size="14" letter-spacing="2">THE RE-READ TAX / INPUT COST BY TURN</text>
+    <line x1="0" y1="338" x2="744" y2="338" stroke="#BFEAE4" stroke-opacity=".28"/>
+    <line x1="0" y1="250" x2="744" y2="250" stroke="#BFEAE4" stroke-opacity=".12"/>
+    <line x1="0" y1="162" x2="744" y2="162" stroke="#BFEAE4" stroke-opacity=".12"/>
+    <line x1="0" y1="74" x2="744" y2="74" stroke="#BFEAE4" stroke-opacity=".12"/>
+
+    <path d="M0 338 C90 337 147 332 212 314 C289 293 329 269 388 225 C463 169 541 105 744 28 L744 338 Z" fill="url(#area)"/>
+    <path d="M0 338 C90 337 147 332 212 314 C289 293 329 269 388 225 C463 169 541 105 744 28" fill="none" stroke="#39E6C2" stroke-width="5" filter="url(#glow)"/>
+
+    <g fill="#0A2940" stroke="#39E6C2" stroke-width="3">
+      <circle cx="0" cy="338" r="7"/><circle cx="212" cy="314" r="7"/><circle cx="388" cy="225" r="7"/><circle cx="570" cy="92" r="7"/><circle cx="744" cy="28" r="8"/>
+    </g>
+    <g fill="#8BCAC5" font-family="JetBrains Mono, Menlo, monospace" font-size="12" letter-spacing="1">
+      <text x="-3" y="366">01</text><text x="202" y="366">08</text><text x="378" y="366">16</text><text x="560" y="366">24</text><text x="724" y="366">32</text>
+    </g>
+    <g transform="translate(430 95)">
+      <rect x="0" y="0" width="196" height="55" rx="4" fill="#0A2539" stroke="#39E6C2" stroke-opacity=".6"/>
+      <text x="14" y="22" fill="#39E6C2" font-family="JetBrains Mono, Menlo, monospace" font-size="11" letter-spacing="1.2">CONTEXT COMPOUNDS</text>
+      <text x="14" y="42" fill="#D8F5F0" font-family="Public Sans, Avenir Next, sans-serif" font-size="14" font-weight="700">every turn pays again</text>
+    </g>
+    <g transform="translate(0 385)">
+      <rect x="0" y="0" width="744" height="1" fill="#39E6C2" fill-opacity=".35"/>
+      <text x="0" y="34" fill="#F3FCFA" font-family="Cooper Hewitt, Avenir Next, sans-serif" font-size="21" font-weight="700">OPTIMIZE COST PER COMPLETED TASK</text>
+      <circle cx="714" cy="27" r="13" fill="#39E6C2"/>
+      <path d="M708 27h12M714 21l6 6-6 6" fill="none" stroke="#071B2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>
