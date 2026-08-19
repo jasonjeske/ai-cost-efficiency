@@ -1,0 +1,11 @@
+date,task_id,task_class,model_tier,sessions,turns_total,attempts,input_tokens,cached_input_tokens,output_tokens,completed_to_standard,cost_usd,notes
+2026-01-01,id-0,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-03,id-1,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-05,id-2,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-07,id-3,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-09,id-4,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-11,id-5,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-13,id-6,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-15,id-7,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-17,id-8,single-file-change,mid,1,1,1,90,0,0,y,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home
+2026-01-19,id-9,single-file-change,mid,1,1,2,90,0,0,n,0.90,ACE_SECRET_CANARY sk-FAKESECRET /Users/fake/home

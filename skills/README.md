@@ -19,5 +19,6 @@ Each skill is a directory containing a `SKILL.md` with a small frontmatter block
 | `cost-baseline/` | Baseline a project's standing overhead and session shape using the scripts, and report the four key numbers. |
 | `tool-catalog-audit/` | Run the tool-server audit end to end and produce the approved-list table. |
 | `session-postmortem/` | Analyze why a finished session was expensive and name the levers that would have cut it. |
+| `agentic-cost-optimization/` | Run the local ACE audit, review-only proposal, isolated verification, and CPCT evidence loop. |
 
 Each one exists twice over: as a usable procedure, and as a demonstration of the pattern to copy for your own recurring procedures.

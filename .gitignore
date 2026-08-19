@@ -8,6 +8,9 @@ venv/
 .DS_Store
 .idea/
 .vscode/
+# Keep the maintained VS Code adapter fixture in source checkouts.
+!tests/fixtures/adapters/vscode-copilot/workspace/.vscode/
+!tests/fixtures/adapters/vscode-copilot/workspace/.vscode/mcp.json
 *.swp
 
 # Local measurement data. Session logs may contain prompt fragments,

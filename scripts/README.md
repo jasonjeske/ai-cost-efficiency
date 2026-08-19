@@ -1,6 +1,25 @@
 # Scripts
 
-Four runnable CLI tools. Python 3.8+, standard library only, zero dependencies, single file each. Every tool supports `--help` and `--json`, produces useful bounded output with no arguments, exits `0` on success, `1` on runtime failure, `2` on usage errors, and rejects unknown flags loudly.
+Python 3.8+, standard library only, zero dependencies. `ace.py` is the local audit, proposal, and verification CLI. The four legacy estimator scripts remain directly runnable with their existing flags and behavior.
+
+## Five-minute ACE workflow
+
+ACE is review-only: audit and proposal do not modify the workspace, and verification uses a removed temporary copy. Keep output outside the workspace.
+
+```sh
+mkdir -p /tmp/ace-results
+python3 scripts/ace.py audit /path/to/workspace --adapter cursor --json --output /tmp/ace-results/audit.json
+python3 scripts/ace.py propose /path/to/workspace --audit /tmp/ace-results/audit.json --json --output /tmp/ace-results/candidate.json
+python3 scripts/ace.py verify /path/to/workspace --candidate /tmp/ace-results/candidate.json --json --output /tmp/ace-results/verification.json
+```
+
+The versioned JSON documents are the supported chaining interface. Select `claude-code`, `codex`, `cursor`, or `vscode-copilot`; use `auto` only for an unambiguous workspace. Read the candidate diff before verification and never auto-apply it. A `no_candidate` result exits 0.
+
+Exit codes are: `0` completed operation, `1` completed negative result, `2` usage, `3` input/output, `4` safety or precondition failure, and `5` unexpected error. See [`RUNBOOK.md`](../RUNBOOK.md) for troubleshooting. Verification confirms static and isolated checks, not observed CPCT improvement. CPCT needs comparable post-change task data and quality guardrails.
+
+## Legacy estimators
+
+The legacy tools produce useful bounded output with no arguments, support `--help` and `--json`, and retain their historical exit behavior. Their usual successful exit is `0`; consult each tool's help for its specific error and gating behavior.
 
 All token figures are estimates from a characters-per-token heuristic (default 4.0, tunable with `--chars-per-token`). Good enough for ranking and budgeting; use your provider's usage dashboard for exact billing.
 

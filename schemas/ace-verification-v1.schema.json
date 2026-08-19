@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ACE verification v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_type",
+    "schema_version",
+    "id",
+    "status",
+    "candidate_id",
+    "baseline_metrics",
+    "candidate_metrics",
+    "deltas",
+    "checks",
+    "cpct_comparison",
+    "outcome_claim",
+    "failure_reasons"
+  ],
+  "properties": {
+    "document_type": {
+      "const": "ace.verification"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/hash"
+    },
+    "candidate_id": {
+      "$ref": "#/$defs/hash"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "failed"
+      ]
+    },
+    "baseline_metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/metric"
+      }
+    },
+    "candidate_metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/metric"
+      }
+    },
+    "deltas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/delta"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    },
+    "cpct_comparison": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/cpct"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "outcome_claim": {
+      "enum": [
+        "improved",
+        "pending_insufficient_evidence",
+        "not_improved",
+        "regressed"
+      ]
+    },
+    "failure_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "value",
+        "unit",
+        "classification",
+        "confidence",
+        "source_ids",
+        "calculation"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "integer",
+            "number",
+            "string"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "classification": {
+          "enum": [
+            "measured",
+            "estimated",
+            "modeled"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "calculation": {
+          "type": "string"
+        }
+      }
+    },
+    "delta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id",
+        "baseline",
+        "candidate",
+        "absolute_delta",
+        "percentage_delta"
+      ],
+      "properties": {
+        "metric_id": {
+          "type": "string"
+        },
+        "baseline": {
+          "type": [
+            "integer",
+            "number",
+            "string"
+          ]
+        },
+        "candidate": {
+          "type": [
+            "integer",
+            "number",
+            "string"
+          ]
+        },
+        "absolute_delta": {
+          "type": [
+            "integer",
+            "number",
+            "string"
+          ]
+        },
+        "percentage_delta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "state"
+      ],
+      "properties": {
+        "name": {
+          "enum": [
+            "preconditions",
+            "isolated_apply",
+            "postimage_hashes",
+            "supported_config_parse",
+            "supported_config_structure",
+            "introduced_reference_targets",
+            "repeat_audit",
+            "metric_delta",
+            "quality_guardrails",
+            "temporary_cleanup"
+          ]
+        },
+        "state": {
+          "enum": [
+            "pass",
+            "fail",
+            "unavailable"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "cohort": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_class",
+        "attempted",
+        "completed",
+        "completion_rate",
+        "single_pass_rate",
+        "spend",
+        "unit",
+        "cpct",
+        "model_tiers",
+        "first_date",
+        "last_date"
+      ],
+      "properties": {
+        "task_class": {
+          "type": "string",
+          "pattern": "^task-[0-9a-f]{16}$"
+        },
+        "attempted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completion_rate": {
+          "type": "string"
+        },
+        "single_pass_rate": {
+          "type": "string"
+        },
+        "spend": {
+          "type": "string"
+        },
+        "unit": {
+          "enum": [
+            "usd",
+            "tokens"
+          ]
+        },
+        "cpct": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_tiers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^tier-[0-9a-f]{16}$"
+          }
+        },
+        "first_date": {
+          "type": "string"
+        },
+        "last_date": {
+          "type": "string"
+        }
+      }
+    },
+    "cpct_class": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "task_class",
+            "pre",
+            "post",
+            "status"
+          ],
+          "properties": {
+            "task_class": {
+              "type": "string",
+              "pattern": "^task-[0-9a-f]{16}$"
+            },
+            "pre": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/cohort"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "post": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/cohort"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "const": "pending"
+            }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "pre": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "post": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "task_class",
+            "pre",
+            "post",
+            "status",
+            "cpct_reduction",
+            "reasons"
+          ],
+          "properties": {
+            "task_class": {
+              "type": "string",
+              "pattern": "^task-[0-9a-f]{16}$"
+            },
+            "pre": {
+              "$ref": "#/$defs/cohort"
+            },
+            "post": {
+              "$ref": "#/$defs/cohort"
+            },
+            "status": {
+              "enum": [
+                "pending",
+                "improved",
+                "not_improved"
+              ]
+            },
+            "cpct_reduction": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "cpct": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "completion_standard_sha256",
+        "harness_id",
+        "classification",
+        "classes",
+        "outcome_claim",
+        "reasons",
+        "quality_guardrails_pass"
+      ],
+      "properties": {
+        "completion_standard_sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "harness_id": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{16}$"
+        },
+        "classification": {
+          "enum": [
+            "measured",
+            "estimated",
+            "modeled"
+          ]
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cpct_class"
+          }
+        },
+        "outcome_claim": {
+          "enum": [
+            "improved",
+            "pending_insufficient_evidence",
+            "not_improved",
+            "regressed"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quality_guardrails_pass": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

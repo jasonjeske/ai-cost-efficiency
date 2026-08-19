@@ -1,0 +1,716 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ACE candidate v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_type",
+    "schema_version",
+    "id",
+    "status",
+    "audit",
+    "audit_id",
+    "selected_findings",
+    "bindings",
+    "diff",
+    "rationales",
+    "expected_metric_deltas",
+    "candidate_id"
+  ],
+  "properties": {
+    "document_type": {
+      "const": "ace.candidate"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/hash"
+    },
+    "candidate_id": {
+      "$ref": "#/$defs/hash"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "no_candidate"
+      ]
+    },
+    "audit": {
+      "$ref": "#/$defs/audit"
+    },
+    "audit_id": {
+      "$ref": "#/$defs/hash"
+    },
+    "selected_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/binding"
+      }
+    },
+    "diff": {
+      "type": "string"
+    },
+    "rationales": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rationale"
+      }
+    },
+    "expected_metric_deltas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/delta"
+      }
+    }
+  },
+  "$defs": {
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "detection_markers",
+        "instruction_inventory",
+        "workspace_tool_config",
+        "tool_definition_dump",
+        "local_session_usage",
+        "task_outcomes"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "claude-code",
+            "codex",
+            "cursor",
+            "vscode-copilot"
+          ]
+        },
+        "detection_markers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "instruction_inventory": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "native_patterns"
+          ],
+          "properties": {
+            "state": {
+              "const": "available"
+            },
+            "native_patterns": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "workspace_tool_config": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "state",
+                "paths",
+                "root_keys"
+              ],
+              "properties": {
+                "state": {
+                  "const": "available"
+                },
+                "paths": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "root_keys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "state",
+                "reason"
+              ],
+              "properties": {
+                "state": {
+                  "const": "unavailable"
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          ]
+        },
+        "tool_definition_dump": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "source"
+          ],
+          "properties": {
+            "state": {
+              "const": "available"
+            },
+            "source": {
+              "const": "explicit_input"
+            }
+          }
+        },
+        "local_session_usage": {
+          "$ref": "#/$defs/unavailable"
+        },
+        "task_outcomes": {
+          "$ref": "#/$defs/unavailable"
+        }
+      }
+    },
+    "unavailable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "fallback"
+      ],
+      "properties": {
+        "state": {
+          "const": "unavailable"
+        },
+        "fallback": {
+          "const": "measurement_csv"
+        }
+      }
+    },
+    "assumptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "chars_per_token",
+        "warn",
+        "turns",
+        "tools_per_server",
+        "tokens_per_tool",
+        "measurement_kind"
+      ],
+      "properties": {
+        "chars_per_token": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "warn": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "turns": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tools_per_server": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tokens_per_tool": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "measurement_kind": {
+          "enum": [
+            "measured",
+            "estimated",
+            "modeled"
+          ]
+        },
+        "model_session": {
+          "type": "boolean"
+        },
+        "user": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "assistant": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tool_output": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cache_discount": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "price_input": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "price_cached": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "price_output": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "mode",
+        "role"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "mode": {
+          "type": "string",
+          "pattern": "^[0-7]{4}$"
+        },
+        "role": {
+          "enum": [
+            "instruction",
+            "context",
+            "tool_config"
+          ]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "path",
+        "sha256",
+        "mode",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "mode": {
+          "type": "string",
+          "pattern": "^[0-7]{4}$"
+        },
+        "role": {
+          "enum": [
+            "instruction",
+            "context",
+            "tool_config",
+            "external"
+          ]
+        }
+      }
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "value",
+        "unit",
+        "classification",
+        "confidence",
+        "source_ids",
+        "calculation"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "integer",
+            "number",
+            "string"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "classification": {
+          "enum": [
+            "measured",
+            "estimated",
+            "modeled"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "calculation": {
+          "type": "string"
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "baseline_metric_id",
+        "baseline",
+        "unit",
+        "evidence",
+        "impact",
+        "action_boundary"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "baseline_metric_id": {
+          "type": "string"
+        },
+        "baseline": {
+          "type": [
+            "integer",
+            "number",
+            "string"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "impact": {
+          "type": "string"
+        },
+        "action_boundary": {
+          "type": "string"
+        }
+      }
+    },
+    "external": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "sha256",
+        "kind",
+        "facts"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "enum": [
+            "external-tool-config",
+            "external-tool-dump"
+          ]
+        },
+        "facts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_type",
+        "schema_version",
+        "id",
+        "status",
+        "adapter",
+        "assumptions",
+        "manifest",
+        "manifest_digest",
+        "sources",
+        "metrics",
+        "findings",
+        "unknowns"
+      ],
+      "properties": {
+        "document_type": {
+          "const": "ace.audit"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "#/$defs/hash"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "failed_threshold"
+          ]
+        },
+        "adapter": {
+          "$ref": "#/$defs/adapter"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/assumptions"
+        },
+        "manifest": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/manifest"
+          }
+        },
+        "manifest_digest": {
+          "$ref": "#/$defs/hash"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "reason"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "capability": {
+                "const": "workspace_tool_config"
+              },
+              "value": {},
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "fallback": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        "measurement": {
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "external_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/external"
+          }
+        }
+      }
+    },
+    "binding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "preimage_sha256",
+            "postimage_sha256",
+            "mode"
+          ],
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "preimage_sha256": {
+              "$ref": "#/$defs/hash"
+            },
+            "postimage_sha256": {
+              "$ref": "#/$defs/hash"
+            },
+            "mode": {
+              "type": "string",
+              "pattern": "^[0-7]{4}$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "postimage_sha256",
+            "mode",
+            "must_be_absent"
+          ],
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "postimage_sha256": {
+              "$ref": "#/$defs/hash"
+            },
+            "mode": {
+              "type": "string",
+              "pattern": "^[0-7]{4}$"
+            },
+            "must_be_absent": {
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "rationale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "hunk",
+        "source_metric_id",
+        "finding_id",
+        "expected_standing_token_delta",
+        "quality_risk",
+        "required_human_judgment"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "hunk": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_metric_id": {
+          "type": "string"
+        },
+        "finding_id": {
+          "type": "string"
+        },
+        "expected_standing_token_delta": {
+          "type": "integer"
+        },
+        "quality_risk": {
+          "type": "string"
+        },
+        "required_human_judgment": {
+          "type": "string"
+        }
+      }
+    },
+    "delta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id",
+        "finding_id",
+        "absolute_delta",
+        "unit"
+      ],
+      "properties": {
+        "metric_id": {
+          "type": "string"
+        },
+        "finding_id": {
+          "type": "string"
+        },
+        "absolute_delta": {
+          "type": "integer"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

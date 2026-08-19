@@ -1,0 +1,217 @@
+{
+  "baseline_metrics": [
+    {
+      "calculation": "sum(round(utf8_replacement_characters / chars_per_token))",
+      "classification": "estimated",
+      "confidence": "medium",
+      "id": "instruction-standing-tokens",
+      "name": "instruction standing tokens",
+      "source_ids": [
+        "src-6ebdb617a810"
+      ],
+      "unit": "tokens_per_turn",
+      "value": 2554
+    },
+    {
+      "calculation": "sum(regular text file bytes)",
+      "classification": "measured",
+      "confidence": "high",
+      "id": "context-bytes",
+      "name": "readable context bytes",
+      "source_ids": [
+        "src-6ebdb617a810",
+        "src-d5d3368a61f8"
+      ],
+      "unit": "bytes",
+      "value": 10286
+    },
+    {
+      "calculation": "sum(per-file round(characters / chars_per_token))",
+      "classification": "estimated",
+      "confidence": "medium",
+      "id": "context-estimated-tokens",
+      "name": "readable context estimate",
+      "source_ids": [
+        "src-6ebdb617a810",
+        "src-d5d3368a61f8"
+      ],
+      "unit": "tokens",
+      "value": 2572
+    },
+    {
+      "calculation": "server_count * tools_per_server * tokens_per_tool_low",
+      "classification": "estimated",
+      "confidence": "low",
+      "id": "tool-standing-tokens-low",
+      "name": "tool standing estimate low",
+      "source_ids": [
+        "src-d5d3368a61f8"
+      ],
+      "unit": "tokens_per_turn",
+      "value": 1000
+    },
+    {
+      "calculation": "server_count * tools_per_server * tokens_per_tool_high",
+      "classification": "estimated",
+      "confidence": "low",
+      "id": "tool-standing-tokens-high",
+      "name": "tool standing estimate high",
+      "source_ids": [
+        "src-d5d3368a61f8"
+      ],
+      "unit": "tokens_per_turn",
+      "value": 5000
+    }
+  ],
+  "candidate_id": "sha256:84df8b08951aec1015fc0e5bb8a56f54ce1d7882326838d950b5cd8cdd141725",
+  "candidate_metrics": [
+    {
+      "calculation": "sum(round(utf8_replacement_characters / chars_per_token))",
+      "classification": "estimated",
+      "confidence": "medium",
+      "id": "instruction-standing-tokens",
+      "name": "instruction standing tokens",
+      "source_ids": [
+        "src-6ebdb617a810"
+      ],
+      "unit": "tokens_per_turn",
+      "value": 67
+    },
+    {
+      "calculation": "sum(regular text file bytes)",
+      "classification": "measured",
+      "confidence": "high",
+      "id": "context-bytes",
+      "name": "readable context bytes",
+      "source_ids": [
+        "src-089de7084128",
+        "src-6ebdb617a810",
+        "src-d5d3368a61f8"
+      ],
+      "unit": "bytes",
+      "value": 10549
+    },
+    {
+      "calculation": "sum(per-file round(characters / chars_per_token))",
+      "classification": "estimated",
+      "confidence": "medium",
+      "id": "context-estimated-tokens",
+      "name": "readable context estimate",
+      "source_ids": [
+        "src-089de7084128",
+        "src-6ebdb617a810",
+        "src-d5d3368a61f8"
+      ],
+      "unit": "tokens",
+      "value": 2637
+    },
+    {
+      "calculation": "server_count * tools_per_server * tokens_per_tool_low",
+      "classification": "estimated",
+      "confidence": "low",
+      "id": "tool-standing-tokens-low",
+      "name": "tool standing estimate low",
+      "source_ids": [
+        "src-d5d3368a61f8"
+      ],
+      "unit": "tokens_per_turn",
+      "value": 1000
+    },
+    {
+      "calculation": "server_count * tools_per_server * tokens_per_tool_high",
+      "classification": "estimated",
+      "confidence": "low",
+      "id": "tool-standing-tokens-high",
+      "name": "tool standing estimate high",
+      "source_ids": [
+        "src-d5d3368a61f8"
+      ],
+      "unit": "tokens_per_turn",
+      "value": 5000
+    }
+  ],
+  "checks": [
+    {
+      "name": "preconditions",
+      "state": "pass"
+    },
+    {
+      "name": "isolated_apply",
+      "state": "pass"
+    },
+    {
+      "name": "postimage_hashes",
+      "state": "pass"
+    },
+    {
+      "name": "supported_config_parse",
+      "reason": "no changed supported configuration",
+      "state": "unavailable"
+    },
+    {
+      "name": "supported_config_structure",
+      "reason": "no changed supported configuration",
+      "state": "unavailable"
+    },
+    {
+      "name": "introduced_reference_targets",
+      "state": "pass"
+    },
+    {
+      "name": "repeat_audit",
+      "state": "pass"
+    },
+    {
+      "name": "metric_delta",
+      "state": "pass"
+    },
+    {
+      "name": "temporary_cleanup",
+      "state": "pass"
+    }
+  ],
+  "cpct_comparison": null,
+  "deltas": [
+    {
+      "absolute_delta": 263,
+      "baseline": 10286,
+      "candidate": 10549,
+      "metric_id": "context-bytes",
+      "percentage_delta": "2.556873420182772700758312269"
+    },
+    {
+      "absolute_delta": 65,
+      "baseline": 2572,
+      "candidate": 2637,
+      "metric_id": "context-estimated-tokens",
+      "percentage_delta": "2.527216174183514774494556765"
+    },
+    {
+      "absolute_delta": -2487,
+      "baseline": 2554,
+      "candidate": 67,
+      "metric_id": "instruction-standing-tokens",
+      "percentage_delta": "-97.37666405638214565387627251"
+    },
+    {
+      "absolute_delta": 0,
+      "baseline": 5000,
+      "candidate": 5000,
+      "metric_id": "tool-standing-tokens-high",
+      "percentage_delta": "0"
+    },
+    {
+      "absolute_delta": 0,
+      "baseline": 1000,
+      "candidate": 1000,
+      "metric_id": "tool-standing-tokens-low",
+      "percentage_delta": "0"
+    }
+  ],
+  "document_type": "ace.verification",
+  "failure_reasons": [],
+  "id": "sha256:39a8b1a0a88bf9d511a0ee900a31428f0ac445dcbc8789ba9618e70f0633b925",
+  "outcome_claim": "pending_insufficient_evidence",
+  "schema_version": 1,
+  "status": "ok"
+}
