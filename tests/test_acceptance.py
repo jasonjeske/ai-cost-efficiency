@@ -61,6 +61,11 @@ class AcceptanceTests(unittest.TestCase):
         root = Path(directory) / adapter / "workspace"
         shutil.copytree(FIXTURES / "adapters" / adapter / "workspace", root, symlinks=True)
         subprocess.run(["git", "init", "-q", str(root)], check=True)
+        # Git maintenance can create a transient lock while the immutability
+        # snapshot is traversing .git on hosted macOS runners. Disable it in
+        # this disposable fixture so the snapshot has a stable Git state.
+        subprocess.run(["git", "-C", str(root), "config", "maintenance.auto", "false"], check=True)
+        subprocess.run(["git", "-C", str(root), "config", "gc.auto", "0"], check=True)
         subprocess.run(["git", "-C", str(root), "add", "-A"], check=True)
         subprocess.run(["git", "-C", str(root), "-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid", "commit", "-qm", "fixture baseline"], check=True)
         return root
