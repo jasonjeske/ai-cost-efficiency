@@ -1,0 +1,35 @@
+{
+  "note": "token figures are model estimates, not measurements; defaults are illustrative round numbers",
+  "assumptions": {
+    "system_tokens": 5000,
+    "tool_catalog_tokens": 15000,
+    "user_per_turn": 150,
+    "assistant_per_turn": 600,
+    "tool_output_per_turn": 1200,
+    "cache_discount": 0.1
+  },
+  "single_session": {
+    "turns": 2,
+    "fixed_prefix_tokens": 20000,
+    "total_input_tokens": 42250,
+    "total_output_tokens": 1200,
+    "fresh_input_tokens": 22100,
+    "cached_input_tokens": 20150,
+    "cache_discount": 0.1,
+    "effective_input_tokens_with_cache": 24115
+  },
+  "per_turn_samples": [
+    {
+      "turn": 1,
+      "input": 20150,
+      "fresh": 20150,
+      "cached": 0
+    },
+    {
+      "turn": 2,
+      "input": 22100,
+      "fresh": 1950,
+      "cached": 20150
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "source": "tests/fixtures/legacy/mcp.jsonc",
+  "mode": "server config (estimated)",
+  "note": "token figures are estimates (chars/token heuristic), not exact tokenizer counts",
+  "server_count": 1,
+  "assumptions": {
+    "tools_per_server": 10,
+    "tokens_per_tool_low": 100,
+    "tokens_per_tool_high": 500
+  },
+  "standing_tokens_per_turn": {
+    "low": 1000,
+    "high": 5000
+  },
+  "compounded_tokens": {
+    "turns": 20,
+    "low": 20000,
+    "high": 100000
+  },
+  "servers": [
+    {
+      "server": "fixture",
+      "assumed_tools": 10,
+      "tokens_low": 1000,
+      "tokens_high": 5000
+    }
+  ]
+}

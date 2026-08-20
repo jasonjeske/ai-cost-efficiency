@@ -1,0 +1,23 @@
+{
+  "note": "estimates via chars/token heuristic, not exact tokenizer counts",
+  "paths": [
+    "tests/fixtures/legacy/context"
+  ],
+  "text_files": 2,
+  "binary_files_skipped": 0,
+  "total_bytes": 10285,
+  "total_est_tokens": 2572,
+  "largest": [
+    {
+      "path": "tests/fixtures/legacy/context/CLAUDE.md",
+      "bytes": 10214,
+      "est_tokens": 2554
+    },
+    {
+      "path": "tests/fixtures/legacy/context/.mcp.json",
+      "bytes": 71,
+      "est_tokens": 18
+    }
+  ],
+  "truncated": 0
+}

@@ -1,0 +1,1 @@
+A FIFO or device in a workspace is rejected before copy.

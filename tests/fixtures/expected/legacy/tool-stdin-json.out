@@ -1,0 +1,13 @@
+{
+  "source": "-",
+  "mode": "tool-definition dump (measured)",
+  "note": "token figures are estimates (chars/token heuristic), not exact tokenizer counts",
+  "tool_count": 0,
+  "standing_tokens_per_turn": 0,
+  "compounded_tokens": {
+    "turns": 20,
+    "total": 0
+  },
+  "tools": [],
+  "tools_truncated": 0
+}

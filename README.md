@@ -24,9 +24,27 @@ Three consequences follow, and this whole repo is built on them:
 
 And one corollary that surprises people: **"use the cheaper model" is frequently the expensive choice.** A smaller model that needs six attempts, with a growing context and human retries, can cost more than a frontier model that finishes in one pass. The correct rule is: *the lowest-cost model that reliably completes the task class in a single pass, determined empirically.* See `routing/model-routing.md`.
 
-## Quickstart (under five minutes)
+## Five-minute ACE operational quickstart
 
-Requires only Python 3.8+ (standard library, zero dependencies) and a shell.
+Requires only Python 3.8+ (standard library, zero dependencies) and a shell. ACE is the local slice for `audit -> propose -> verify`: it inventories one workspace, produces a review-only candidate, and verifies that candidate in an isolated copy. It never auto-applies a patch.
+
+```sh
+# Run from this checkout. Keep artifacts outside the selected workspace.
+mkdir -p /tmp/ace-results
+python3 scripts/ace.py audit /path/to/workspace --adapter codex --json --output /tmp/ace-results/audit.json
+python3 scripts/ace.py propose /path/to/workspace --audit /tmp/ace-results/audit.json --json --output /tmp/ace-results/candidate.json
+python3 scripts/ace.py verify /path/to/workspace --candidate /tmp/ace-results/candidate.json --json --output /tmp/ace-results/verification.json
+```
+
+Use `claude-code`, `codex`, `cursor`, or `vscode-copilot`, or use `--adapter auto` only when one adapter is unambiguous. Inspect the proposal diff and rationales before verification. A `no_candidate` status is a successful result. JSON documents are versioned and chain through the commands shown above; `--output` must be outside the workspace.
+
+Exit code `0` means the operation completed, not that CPCT improved. Code `1` is a completed negative verification or quality result, `2` is usage, `3` is input/output, `4` is a safety or stale-precondition failure, and `5` is unexpected internal failure. See `RUNBOOK.md` for recovery.
+
+Verification can prove immediate configuration, parsing, reference, and same-assumption metric checks. It cannot prove lower cost per completed task (CPCT) without comparable post-change task cohorts, a declared completion standard, and passing completion-quality guardrails. See `skills/agentic-cost-optimization/SKILL.md` for the safe procedure.
+
+### Legacy estimator quickstart
+
+The four original scripts remain direct compatibility entry points with their existing flags and behavior.
 
 ```sh
 git clone https://github.com/jasonjeske/ai-cost-efficiency.git && cd ai-cost-efficiency
@@ -65,11 +83,14 @@ Then adopt in this order:
 | `standards/tool-design.md` | The output contract every agent-facing tool must meet. |
 | `templates/AGENTS.md` | Annotated instruction-file template. Explains why each section earns its re-read-every-turn cost. |
 | `templates/workspace-config/` | Baseline editor settings, ignore files, and an audited tool-server process for Cursor and VS Code. |
-| `scripts/` | Four runnable, dependency-free CLI tools (see Quickstart). |
+| `scripts/` | The local `ace.py` workflow plus four preserved, dependency-free legacy CLI tools. |
 | `skills/` | Packaged procedures loaded on demand instead of living in always-loaded instructions. |
 | `routing/model-routing.md` | Task class to model tier, maintained as an empirical table with an evidence column. |
 | `measurement/` | How to baseline consumption and compute cost per completed task, with a worked example. |
 | `docs/editor-setup.md` | Exact instruction and config filenames for Cursor and VS Code with Copilot, with vendor citations. |
+| `docs/agent-integration.md` | Local setup patterns for Claude Code, Codex, Cursor, and VS Code Copilot. |
+| `docs/enterprise-adoption.md` | Advisory-to-enforcement rollout, privacy, and evidence guidance. |
+| `RUNBOOK.md` | Local operation, troubleshooting, exit codes, and rollback. |
 | `docs/billing-mechanics.md` | The deeper explanation of re-reading, caching, and tool overhead. |
 
 ## Who this is for

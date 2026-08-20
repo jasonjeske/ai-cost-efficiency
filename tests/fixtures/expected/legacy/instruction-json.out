@@ -1,0 +1,15 @@
+{
+  "note": "estimates via chars/token heuristic; instruction files are re-read every turn, so totals here are per-turn standing cost",
+  "root": "tests/fixtures/legacy/repo",
+  "files": [
+    {
+      "path": "CLAUDE.md",
+      "est_tokens": 2554,
+      "status": "REVIEW"
+    }
+  ],
+  "total_est_tokens": 2554,
+  "warn_threshold": 2500,
+  "fail_over": null,
+  "failures": 0
+}
